@@ -9,6 +9,9 @@ class HTMLNode:
         raise NotImplementedError
     
     def props_to_html(self):
+        if self.props is None:
+            return ""
+
         items = map(lambda x : f'{x[0]}="{x[1]}"', self.props.items())
         return " " + " ".join(list(items))
 

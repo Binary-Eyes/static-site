@@ -35,13 +35,13 @@ class LeafNode(HTMLNode):
 
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props = None):
-        super().__init__(self, tag, None, children, props)
+        super().__init__(tag, None, children, props)
 
     def to_html(self):
         if self.tag == None or self.tag == "":
             raise ValueError("parent node is missing a tag")
         
-        if self.children == None:
+        if self.children == None or len(self.children) == 0:
             raise ValueError("parent node is missing its children")
         
         start_tag, end_tag = create_tag_pair(self)

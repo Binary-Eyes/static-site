@@ -46,7 +46,7 @@ class ParentNode(HTMLNode):
         
         start_tag, end_tag = create_tag_pair(self)
         html = "".join(map(lambda x : x.to_html(), self.children))
-        return f"{start_tag}{html}{end_tag}"        
+        return f"{start_tag}{html}{end_tag}"
 
 
 def create_tag_pair(node):

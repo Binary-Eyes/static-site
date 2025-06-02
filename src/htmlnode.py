@@ -45,8 +45,8 @@ class ParentNode(HTMLNode):
             raise ValueError("parent node is missing its children")
         
         start_tag, end_tag = create_tag_pair(self)
-        
-        pass
+        html = "".join(map(lambda x : x.to_html(), self.children))
+        return f"{start_tag}{html}{end_tag}"        
 
 
 def create_tag_pair(node):

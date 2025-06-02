@@ -29,9 +29,30 @@ class LeafNode(HTMLNode):
         if self.tag is None or self.tag == "":
             return self.value
         
-        start_tag = f"<{self.tag}>"
-        if self.props is not None and len(self.props) > 0:
-            start_tag = f"<{self.tag}{self.props_to_html()}>"
-
-        end_tag = f"</{self.tag}>"
+        start_tag, end_tag = get_tag_pair(self)
         return f"{start_tag}{self.value}{end_tag}"
+
+
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props = None):
+        super().__init__(self, tag, None, children, props)
+
+    def to_html(self):
+        if self.tag == None or self.tag == "":
+            raise ValueError("parent node is missing a tag")
+        
+        if self.children == None:
+            raise ValueError("parent node is missing its children")
+        
+        pass
+
+def get_tag_pair(node):
+    if node.tag is None or node.tag == "":
+        raise Exception("failed to generate tag pair: html node missing tag property")
+    
+    start_tag = f"<{node.tag}>"
+    if node.props is not None and len(node.props) > 0:
+        start_tag = f"<{node.tag}{node.props_to_html()}>"
+
+    end_tag = f"</{node.tag}>"
+    return start_tag, end_tag

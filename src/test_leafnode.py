@@ -2,6 +2,12 @@ import unittest
 from htmlnode import *
 
 class TestLeafNode(unittest.TestCase):
+    def test_with_props(self):
+        node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+        expected = '<a href="https://www.google.com">Click me!</a>'
+        self.assertEqual(expected, node.to_html())
+    
+    
     def test_with_tag(self):
         node = LeafNode("p", "it is the best of days")
         expected = "<p>it is the best of days</p>"

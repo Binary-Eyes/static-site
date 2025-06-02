@@ -26,5 +26,9 @@ class LeafNode(HTMLNode):
             raise ValueError("leaf node must have a value")
         
     def to_html(self):
-        if self.tag is None or "":
+        if self.tag is None or self.tag == "":
             return self.value
+        
+        start_tag = f"<{self.tag}>"
+        end_tag = f"</{self.tag}>"
+        return f"{start_tag}{self.value}{end_tag}"

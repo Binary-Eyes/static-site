@@ -8,12 +8,14 @@ class TestLeafNode(unittest.TestCase):
         self.assertEqual(expected, node.to_html())
     
     def test_tag_empty(self):
-        node = LeafNode("", "raw text leaf node")
-        self.assertEqual("raw text leaf node", node.to_html())        
+        text = "node with empty tag"
+        node = LeafNode("", text)
+        self.assertEqual(text, node.to_html())        
     
     def test_tag_none(self):
-        node = LeafNode(None, "raw text leaf node")
-        self.assertEqual("raw text leaf node", node.to_html())
+        text = "node with tag.none"
+        node = LeafNode(None, text)
+        self.assertEqual(text, node.to_html())
     
     def test_invalid_node(self):
         create = lambda : LeafNode("a", None)

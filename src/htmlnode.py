@@ -29,7 +29,7 @@ class LeafNode(HTMLNode):
         if self.tag is None or self.tag == "":
             return self.value
         
-        start_tag, end_tag = get_tag_pair(self)
+        start_tag, end_tag = create_tag_pair(self)
         return f"{start_tag}{self.value}{end_tag}"
 
 
@@ -44,9 +44,12 @@ class ParentNode(HTMLNode):
         if self.children == None:
             raise ValueError("parent node is missing its children")
         
+        start_tag, end_tag = create_tag_pair(self)
+        
         pass
 
-def get_tag_pair(node):
+
+def create_tag_pair(node):
     if node.tag is None or node.tag == "":
         raise Exception("failed to generate tag pair: html node missing tag property")
     

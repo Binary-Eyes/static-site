@@ -3,18 +3,27 @@ from textnode import *
 from htmlnode import *
 
 class TestTextNodeToHtmlNode(unittest.TestCase):
+    def test_link_text(self):
+        text_node = TextNode("search engine", TextType.LINK, "www.google.com")
+        html_node = text_node_to_html_node(text_node)
+        expected = '<a href="www.google.com">search engine</a>'
+        self.assertEqual(expected, html_node.to_html())
+    
+    
     def test_code_text(self):
         text_node = TextNode('printf("hello, world!")', TextType.CODE)
         html_node = text_node_to_html_node(text_node)
         expected = '<code>printf("hello, world!")</code>'
         self.assertEqual(expected, html_node.to_html())
     
+
     def test_italic_text(self):
         text_node = TextNode("italics", TextType.ITALIC)
         html_node = text_node_to_html_node(text_node)
         expected = "<i>italics</i>"
         self.assertEqual(expected, html_node.to_html())
     
+
     def test_bold_text(self):
         text_node = TextNode("bold text node", TextType.BOLD)
         html_node = text_node_to_html_node(text_node)

@@ -3,13 +3,20 @@ from textnode import *
 from htmlnode import *
 
 class TestTextNodeToHtmlNode(unittest.TestCase):
+    def test_image_text(self):
+        text_node = TextNode("awesome malinois", TextType.IMAGE, "malinois.png")
+        html_node = text_node_to_html_node(text_node)
+        expected = '<img src="malinois.png" alt="awesome malinois"></img>'
+        self.assertEqual(expected, html_node.to_html())
+
+    
     def test_link_text(self):
         text_node = TextNode("search engine", TextType.LINK, "www.google.com")
         html_node = text_node_to_html_node(text_node)
         expected = '<a href="www.google.com">search engine</a>'
         self.assertEqual(expected, html_node.to_html())
     
-    
+
     def test_code_text(self):
         text_node = TextNode('printf("hello, world!")', TextType.CODE)
         html_node = text_node_to_html_node(text_node)

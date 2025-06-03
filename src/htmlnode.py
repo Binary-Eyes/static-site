@@ -1,3 +1,5 @@
+from textnode import TextType, TextNode
+
 class HTMLNode:
     def __init__(self, tag = None, value = None, children = None, props = None):
         self.tag = tag
@@ -59,3 +61,10 @@ def create_tag_pair(node):
 
     end_tag = f"</{node.tag}>"
     return start_tag, end_tag
+
+
+def text_node_to_html_node(text_node):
+    match text_node.text_type:
+        case TextType.NORMAL:
+            return LeafNode(None, text_node.text)
+            

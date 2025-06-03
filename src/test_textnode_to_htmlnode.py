@@ -3,6 +3,12 @@ from textnode import *
 from htmlnode import *
 
 class TestTextNodeToHtmlNode(unittest.TestCase):
+    def test_code_text(self):
+        text_node = TextNode('printf("hello, world!")', TextType.CODE)
+        html_node = text_node_to_html_node(text_node)
+        expected = '<code>printf("hello, world!")</code>'
+        self.assertEqual(expected, html_node.to_html())
+    
     def test_italic_text(self):
         text_node = TextNode("italics", TextType.ITALIC)
         html_node = text_node_to_html_node(text_node)

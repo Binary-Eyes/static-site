@@ -74,5 +74,6 @@ def text_node_to_html_node(text_node):
         case TextType.ITALIC:
             return LeafNode("i", text_node.text)
         
-        
+        case TextType.CODE:
+            return LeafNode("code", text_node.text)
             

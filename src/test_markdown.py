@@ -8,6 +8,10 @@ class TestMarkdownSplitter(unittest.TestCase):
         root = TextNode("the following is a `code snippet` word block", TextType.TEXT)
         split = split_nodes_delimiter([root], "`", TextType.CODE)
         self.assertEqual(3, len(split))
+        self.assertEqual("the following is a ", split[0].text)
+        self.assertEqual("code snippet", split[1].text)
+        self.assertEqual(" word block", split[2].text)
+        self.assertEqual(TextType.CODE, split[1].text_type)
 
     
     def test_simple_text(self):

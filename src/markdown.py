@@ -19,9 +19,16 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         if len(last_split) != 2:
             raise Exception("invalid markdown: missing closing delimiter")
         
-        new_nodes.append(TextNode(first_split[0], TextType.TEXT))
-        new_nodes.append(TextNode(last_split[0], text_type))
-        new_nodes.append(TextNode(last_split[1], TextType.TEXT))
+        if first_split[0] != "":
+            new_nodes.append(TextNode(first_split[0], TextType.TEXT))
+
+        if last_split[0] != "":
+            new_nodes.append(TextNode(last_split[0], text_type))
+        
+        if last_split[1] != "":            
+            last_node = TextNode(last_split[1], TextType.TEXT)
+            sub_nodes = split_nodes_delimiter([last_node], delimiter, text_type)
+            new_nodes.extend(sub_nodes)
 
     return new_nodes
         

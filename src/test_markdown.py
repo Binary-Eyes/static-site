@@ -4,6 +4,18 @@ from markdown import *
 from textnode import *
 
 class TestMarkdownSplitter(unittest.TestCase):
+    def test_text_with_images(self):
+        root = TextNode( "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)", TextType.TEXT)
+        split = split_nodes_image([root])
+        expected = [
+            TextNode("This is text with an ", TextType.TEXT),
+            TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png"),
+            TextNode(" and another ", TextType.TEXT),
+            TextNode("second image", TextType.IMAGE, "https://i.imgur.com/3elNhQu.png"),
+        ]
+        self.assertListEqual(expected, split)
+
+    
     def test_text_with_links(self):
         root = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)", TextType.TEXT)
         split = split_nodes_link([root])

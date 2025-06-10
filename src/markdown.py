@@ -14,7 +14,28 @@ def split_nodes_image(old_nodes):
 
 
 def split_nodes_link(old_nodes):
-    pass
+    new_nodes = []
+    for old_node in old_nodes:
+        if old_node.text_type != TextType.TEXT:
+            new_nodes.append(old_node)
+            continue
+
+        links = extract_markdown_links(old_node.text)
+        if len(links) == 0:
+            new_nodes.append(old_node)
+            continue
+
+        print()
+        for link in links:
+            print(f"LINK: {link}")
+            sections = old_node.text.split(f"[{link[0]}]({link[1]})")
+            for section in sections:
+                print(f"\tsection: {section}")
+
+            continue
+
+    print()
+    return new_nodes
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):

@@ -25,16 +25,18 @@ def split_nodes_link(old_nodes):
             new_nodes.append(old_node)
             continue
 
-        print()
+        current = old_node.text
         for link in links:
-            print(f"LINK: {link}")
-            sections = old_node.text.split(f"[{link[0]}]({link[1]})")
-            for section in sections:
-                print(f"\tsection: {section}")
+            sections = current.split(f"[{link[0]}]({link[1]})")
+            if sections[0] != "":
+                new_nodes.append(TextNode(sections[0], TextType.TEXT))
 
-            continue
+            new_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
+            current = sections[1]
 
-    print()
+        if current != "":
+            new_nodes.append(TextNode(current, TextType.TEXT))
+
     return new_nodes
 
 

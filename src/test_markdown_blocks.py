@@ -1,6 +1,19 @@
 import unittest
 from markdown import *
 
+class TestBlockType(unittest.TestCase):
+    def test_code_block(self):
+        text = "```this is a code block```"
+        type = block_to_block_type(text)
+        self.assertEqual(MarkdownBlockType.CODE, type)
+        
+    
+    def test_heading(self):
+        text = "## This is a heading!"
+        type = block_to_block_type(text)
+        self.assertEqual(MarkdownBlockType.HEADING, type)
+
+
 class TestMarkdownBlocks(unittest.TestCase):
     def test_simple_markdown_blocks(self):
         md = """

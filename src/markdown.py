@@ -8,7 +8,14 @@ class MarkdownBlockType(Enum):
     QUOTE = "quote"
     UNORDERED_LIST = "unordered_list"
     ORDERED_LIST = "ordered_list"
-    
+
+
+def block_to_block_type(markdown):
+    if markdown[0:3] == "```" and markdown[-3:] == "```":
+        return MarkdownBlockType.CODE
+
+    return MarkdownBlockType.HEADING
+
 
 def extract_markdown_images(text):
     return re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)

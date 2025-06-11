@@ -107,4 +107,13 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
 
 def markdown_to_blocks(markdown):
-    pass
+    blocks = []
+    sections = markdown.split("\n\n")
+    for section in sections:
+        if section == "":
+            continue
+
+        block = section.lstrip("\n").strip().rstrip("\n")
+        blocks.append(block)
+
+    return blocks

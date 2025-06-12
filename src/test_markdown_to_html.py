@@ -3,6 +3,20 @@ from markdown import *
 from htmlnode import *
 
 class TestMarkdownToHtml(unittest.TestCase):
+    def test_with_unordered_list(self):
+        markdown = """
+## Todo
+
+- build site
+- run project
+- profit!
+"""
+        html_node = markdown_to_html_node(markdown)
+        html = html_node.to_html()
+        expected = "<div><h2>Todo</h2><ul><li>build site</li><li>run project</li><li>profit!</li></ul></div>"
+        self.assertEqual(expected, html)
+
+    
     def test_with_single_header_1(self):
         markdown = """
 # Static Site Generator

@@ -31,8 +31,16 @@ def markdown_to_html_node(markdown):
 
             case MarkdownBlockType.QUOTE:
                 html_nodes.append(create_quote_node(block))
+
+            case MarkdownBlockType.CODE:
+                html_nodes.append(create_code_block_node(block))
                 
     return ParentNode("div", html_nodes)
+
+
+def create_code_block_node(block):    
+    code_node = LeafNode("code", block.strip("```").lstrip("\n"))
+    return ParentNode("pre", [code_node])
 
 
 def create_quote_node(block):

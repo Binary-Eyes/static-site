@@ -3,6 +3,19 @@ from markdown import *
 from htmlnode import *
 
 class TestMarkdownToHtml(unittest.TestCase):
+    def test_codeblock(self):
+        markdown = """
+```
+This is text that _should_ remain
+the **same** even with inline stuff
+```
+"""
+        node = markdown_to_html_node(markdown)
+        html = node.to_html()
+        expected = "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>"
+        self.assertEqual(expected, html)
+        
+    
     def test_quotes(self):
         markdown = """
 # **Famous** People!

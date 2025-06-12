@@ -17,10 +17,17 @@ def markdown_to_html_node(markdown):
     for block in blocks:
         block_type = block_to_block_type(block)
         match block_type:
-            case MarkdownBlockType.PARAGRAPH:                
+            case MarkdownBlockType.HEADING:
+                html_nodes.append(create_header_node(block))
+            
+            case MarkdownBlockType.PARAGRAPH:
                 html_nodes.append(create_paragraph_node(block))
                 
     return ParentNode("div", html_nodes)
+
+
+def create_header_node(block):
+    pass
 
 
 def create_paragraph_node(block):

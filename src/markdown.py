@@ -27,7 +27,27 @@ def markdown_to_html_node(markdown):
 
 
 def create_header_node(block):
-    pass
+    level = count_header_level(block)
+    if level == 0:
+        raise ValueError("markdown header level is zero")
+    
+    header_nodes = []
+    text = block[level+1::]
+    text_nodes = text_to_textnodes(text)
+    for text_node in text_nodes:
+        header_nodes.append(text_node_to_html_node(text_node))
+    
+    return ParentNode(f"h{level}", header_nodes)
+
+
+def count_header_level(header):
+    count = 0
+    for i in range(0, len(header)):
+        if header[i] != "#":
+            return count
+        count+=1
+
+    raise Exception("markdown header has no text")
 
 
 def create_paragraph_node(block):

@@ -3,14 +3,14 @@ from markdown import *
 from htmlnode import *
 
 class TestMarkdownToHtml(unittest.TestCase):
-#     def test_with_single_header_1(self):
-#         markdown = """
-# # Static Site Generator
-# """
-#         html_node = markdown_to_html_node(markdown)
-#         html = html_node.to_html()
-#         expected = "<div><h1>Static Site Generator</h1></div>"
-#         self.assertEqual(expected, html)
+    def test_with_single_header_1(self):
+        markdown = """
+# Static Site Generator
+"""
+        html_node = markdown_to_html_node(markdown)
+        html = html_node.to_html()
+        expected = "<div><h1>Static Site Generator</h1></div>"
+        self.assertEqual(expected, html)
 
 
     def test_paragraphs(self):

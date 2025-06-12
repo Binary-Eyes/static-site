@@ -28,8 +28,15 @@ def markdown_to_html_node(markdown):
 
             case MarkdownBlockType.ORDERED_LIST:
                 html_nodes.append(create_ordered_list_node(block))
+
+            case MarkdownBlockType.QUOTE:
+                html_nodes.append(create_quote_node(block))
                 
     return ParentNode("div", html_nodes)
+
+
+def create_quote_node(block):
+    pass
 
 
 def create_ordered_list_node(block):

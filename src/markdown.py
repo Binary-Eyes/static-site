@@ -22,8 +22,26 @@ def markdown_to_html_node(markdown):
             
             case MarkdownBlockType.PARAGRAPH:
                 html_nodes.append(create_paragraph_node(block))
+
+            case MarkdownBlockType.UNORDERED_LIST:
+                html_nodes.append(create_unordered_list_node(block))
                 
     return ParentNode("div", html_nodes)
+
+
+def create_unordered_list_node(block):
+    list_nodes = []
+    points = list(map(lambda x : x.lstrip("-").lstrip(" "), block.split("\n")))
+    for point in points:
+        text_nodes = text_to_textnodes(point)
+        point_nodes = []
+        for text_node in text_nodes:
+            point_nodes.append(text_node_to_html_node(text_node))
+        
+        point_node = ParentNode("li", point_nodes)
+        list_nodes.append(point_node)
+
+    return ParentNode("ul", list_nodes)
 
 
 def create_header_node(block):

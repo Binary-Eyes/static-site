@@ -36,10 +36,17 @@ def markdown_to_html_node(markdown):
 
 
 def create_quote_node(block):
-    list_nodes = []
+    block_nodes = []
     quotes = list(map(lambda x : x.lstrip(">").lstrip(" "), block.split("\n")))
     for quote in quotes:
         quote_nodes = []
+        text_nodes = text_to_textnodes(quote)
+        for text_node in text_nodes:
+            quote_nodes.append(text_node_to_html_node(text_node))
+        
+        block_nodes.append(ParentNode("p", quote_nodes))
+
+    return ParentNode("blockquote", block_nodes)
 
 
 def create_ordered_list_node(block):

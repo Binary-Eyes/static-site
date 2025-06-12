@@ -3,6 +3,19 @@ from markdown import *
 from htmlnode import *
 
 class TestMarkdownToHtml(unittest.TestCase):
+    def test_with_ordered_list(self):
+        markdown = """
+### Another List
+
+1. Item1
+2. Item2
+"""
+        html_node = markdown_to_html_node(markdown)
+        html = html_node.to_html()
+        expected = "<div><h3>Another List</h3><ol><li>Item1</li><li>Item2</li></ol></div>"
+        self.assertEqual(expected, html)
+
+
     def test_with_unordered_list(self):
         markdown = """
 ## Todo

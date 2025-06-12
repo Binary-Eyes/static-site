@@ -1,5 +1,6 @@
 import re
 from textnode import *
+from htmlnode import *
 
 class MarkdownBlockType(Enum):
     PARAGRAPH = "paragraph"
@@ -10,11 +11,44 @@ class MarkdownBlockType(Enum):
     ORDERED_LIST = "ordered_list"
 
 
+def markdown_to_html_node(markdown):
+    html_nodes = []
+    blocks = markdown_to_blocks(markdown)
+    for block in blocks:
+        block_type = block_to_block_type(block)
+        match block_type:
+            case MarkdownBlockType.PARAGRAPH:                
+                html_nodes.append(create_paragraph_node(block))
+                
+    return ParentNode("div", html_nodes)
+
+
+def create_paragraph_node(block):
+    paragraph_nodes = []
+    text_nodes = text_to_textnodes(block)
+    for text_node in text_nodes:
+        paragraph_nodes.append(text_node_to_html_node(text_node))
+    return ParentNode("p", paragraph_nodes)
+
+
 def block_to_block_type(markdown):
     if markdown[0:3] == "```" and markdown[-3:] == "```":
         return MarkdownBlockType.CODE
+    if markdown[0] == "#":
+        return MarkdownBlockType.HEADING
+    
+    lines = markdown.split("\n")
+    if all(line.startswith(">") for line in lines):
+        return MarkdownBlockType.QUOTE
+    
+    if all(line.startswith("-") for line in lines):
+        return MarkdownBlockType.UNORDERED_LIST
+    
+    for i in range(0, len(lines)):
+        if not lines[i].startswith(f"{i}."):
+            return MarkdownBlockType.PARAGRAPH
 
-    return MarkdownBlockType.HEADING
+    return MarkdownBlockType.ORDERED_LIST
 
 
 def extract_markdown_images(text):

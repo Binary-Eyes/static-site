@@ -28,18 +28,27 @@ def initialize():
 
 
 def clone_contents(source_dir):
+    target_dir = get_target_dir(source_dir)
+    print(f"{source_dir} ---> {target_dir}")
+    if not os.path.exists(target_dir):
+        os.mkdir(target_dir)
+
+    source_items = os.listdir(source_dir)
+    for item in source_items:
+        source_path = os.path.join(source_dir, item)
+        target_path = os.path.join(target_dir, item)
+        if os.path.isdir(source_path):
+            clone_contents(source_path)
+        else:
+            print(f"{source_path} ---> {target_path}")
+
+
+def get_target_dir(source_dir):
     global SOURCE
     global TARGET
-    target_dir = source_dir[len(SOURCE):]
-    print(f"{source_dir} ---> {target_dir}")
+    prefix = os.path.join(".", SOURCE)
+    return source_dir.replace(SOURCE, TARGET)
 
-    # dir_items = os.listdir(parent_dir)
-    # for item in dir_items:
-    #     subpath = os.path.join(parent_dir, item)
-    #     if os.path.isdir(subpath):
-    #         subpath += "/"
-
-    #     print(f" {subpath}")
 
 if __name__ == '__main__':
     main()

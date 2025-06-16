@@ -28,7 +28,9 @@ def initialize():
 
 
 def clone_contents(source_dir):
-    target_dir = get_target_dir(source_dir)
+    global SOURCE
+    global TARGET
+    target_dir = source_dir.replace(SOURCE, TARGET)
     print(f"{source_dir} ---> {target_dir}")
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
@@ -41,13 +43,7 @@ def clone_contents(source_dir):
             clone_contents(source_path)
         else:
             print(f"{source_path} ---> {target_path}")
-
-
-def get_target_dir(source_dir):
-    global SOURCE
-    global TARGET
-    prefix = os.path.join(".", SOURCE)
-    return source_dir.replace(SOURCE, TARGET)
+            shutil.copy(source_path, target_path)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 import os
 import shutil
+from page import generate_page
 
 SOURCE = "static"
 TARGET = "public"
@@ -7,10 +8,10 @@ TARGET = "public"
 def main():
     print("static site generator v1.0.0")
     print("developed by: amir barak")
-
     static_dir, public_dir = initialize()
-
     clone_contents(static_dir)
+    generate_page("./content/index.md", "./template.html", "./public/index.htmls")
+
     print("goodbye")
 
 

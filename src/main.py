@@ -10,7 +10,8 @@ def main():
     print("developed by: amir barak")
     static_dir, public_dir = initialize()
     clone_contents(static_dir)
-    generate_page("./content/index.md", "./template.html", "./public/index.htmls")
+    generate_page("./content/index.md", "./template.html", "./public/index.html")
+    
 
     print("goodbye")
 

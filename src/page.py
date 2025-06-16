@@ -1,3 +1,4 @@
+import os
 from markdown import markdown_to_html_node
 
 def generate_page(from_path, template_path, dest_path):
@@ -8,9 +9,11 @@ def generate_page(from_path, template_path, dest_path):
     with open(template_path, 'r') as template_file:
         template = template_file.read()
 
-    html_node = markdown_to_html_node(markdown)
-    html = html_node.to_html()
-    
+    title = extract_title(markdown)
+    html = markdown_to_html_node(markdown).to_html()
+    template = template.replace("{{ Title }}", title).replace("{{ Content }}", html)
+    with open(dest_path, 'w') as index_file:
+        index_file.write(template)
 
 
 def extract_title(markdown):

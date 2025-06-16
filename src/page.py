@@ -1,3 +1,5 @@
+from markdown import markdown_to_html_node
+
 def generate_page(from_path, template_path, dest_path):
     print(f"generating page: from={from_path}, to={dest_path}, template={template_path}")
     with open(from_path, 'r') as md_file:
@@ -5,6 +7,10 @@ def generate_page(from_path, template_path, dest_path):
         
     with open(template_path, 'r') as template_file:
         template = template_file.read()
+
+    html_node = markdown_to_html_node(markdown)
+    html = html_node.to_html()
+    
 
 
 def extract_title(markdown):

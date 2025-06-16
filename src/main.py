@@ -1,27 +1,24 @@
 import os
 import shutil
-from page import generate_page
+from page import *
 
-SOURCE = "static"
-TARGET = "public"
 
 def main():
     print("static site generator v1.0.0")
     print("developed by: amir barak")
     static_dir, public_dir = initialize()
     clone_contents(static_dir)
-    generate_page("./content/index.md", "./template.html", "./public/index.html")
-    
+    generate_pages_recursive("./content", "./template.html", public_dir)
 
     print("goodbye")
 
 
 def initialize():
-    static_dir = os.path.join(os.curdir, SOURCE)
+    static_dir = os.path.join(os.curdir, "static")
     if not os.path.exists(static_dir):
         raise Exception(f"static directory missing from current location: {static_dir}")
 
-    public_dir = os.path.join(os.curdir, TARGET)
+    public_dir = os.path.join(os.curdir, "public")
     if os.path.exists(public_dir):
         print(f"deleting public dir: {public_dir}")
         shutil.rmtree(public_dir)
@@ -30,9 +27,7 @@ def initialize():
 
 
 def clone_contents(source_dir):
-    global SOURCE
-    global TARGET
-    target_dir = source_dir.replace(SOURCE, TARGET)
+    target_dir = source_dir.replace("static", "public")
     print(f"{source_dir} ---> {target_dir}")
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)

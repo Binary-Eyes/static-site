@@ -16,10 +16,10 @@ def main():
 
 
 def get_base_path(args):
-    if len(args) == 0:
+    if len(args) < 2:
         return "/"
     
-    return args[0]
+    return args[1]
 
 
 def initialize():

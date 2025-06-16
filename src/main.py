@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 from page import *
 
@@ -6,11 +7,19 @@ from page import *
 def main():
     print("static site generator v1.0.0")
     print("developed by: amir barak")
+    basepath = get_base_path(sys.argv)
     static_dir, public_dir = initialize()
     clone_contents(static_dir)
-    generate_pages_recursive("./content", "./template.html", public_dir)
+    generate_pages_recursive(basepath, "./content", "./template.html", public_dir)
 
     print("goodbye")
+
+
+def get_base_path(args):
+    if len(args) == 0:
+        return "/"
+    
+    return args[0]
 
 
 def initialize():

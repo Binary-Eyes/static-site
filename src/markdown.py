@@ -44,17 +44,13 @@ def create_code_block_node(block):
 
 
 def create_quote_node(block):
-    block_nodes = []
-    quotes = list(map(lambda x : x.lstrip(">").lstrip(" "), block.split("\n")))
-    for quote in quotes:
-        quote_nodes = []
-        text_nodes = text_to_textnodes(quote)
-        for text_node in text_nodes:
-            quote_nodes.append(text_node_to_html_node(text_node))
+    quote_nodes = []
+    quote = " ".join(list(map(lambda x : x.lstrip(">").lstrip(" "), block.split("\n"))))
+    text_nodes = text_to_textnodes(quote)
+    for text_node in text_nodes:
+        quote_nodes.append(text_node_to_html_node(text_node))
         
-        block_nodes.append(ParentNode("p", quote_nodes))
-
-    return ParentNode("blockquote", block_nodes)
+    return ParentNode("blockquote", quote_nodes)
 
 
 def create_ordered_list_node(block):

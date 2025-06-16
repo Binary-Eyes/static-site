@@ -110,7 +110,7 @@ def count_header_level(header):
     for i in range(0, len(header)):
         if header[i] != "#":
             return count
-        count+=1
+        count += 1
 
     raise Exception("markdown header has no text")
 

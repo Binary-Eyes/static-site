@@ -2,7 +2,9 @@ def generate_page(from_path, template_path, dest_path):
     print(f"generating page: from={from_path}, to={dest_path}, template={template_path}")
     with open(from_path, 'r') as md_file:
         markdown = md_file.read()
-        print(markdown)
+        
+    with open(template_path, 'r') as template_file:
+        template = template_file.read()
 
 
 def extract_title(markdown):

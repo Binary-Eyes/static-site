@@ -7,10 +7,10 @@ from page import *
 def main():
     print("static site generator v1.0.0")
     print("developed by: amir barak")
-    basepath = get_base_path(sys.argv)
-    static_dir, public_dir = initialize()
+    base_path = get_base_path(sys.argv)
+    static_dir, target_dir = initialize()
     clone_contents(static_dir)
-    generate_pages_recursive(basepath, "./content", "./template.html", public_dir)
+    generate_pages_recursive(base_path, "./content", "./template.html", target_dir)
 
     print("goodbye")
 
@@ -27,16 +27,16 @@ def initialize():
     if not os.path.exists(static_dir):
         raise Exception(f"static directory missing from current location: {static_dir}")
 
-    public_dir = os.path.join(os.curdir, "public")
-    if os.path.exists(public_dir):
-        print(f"deleting public dir: {public_dir}")
-        shutil.rmtree(public_dir)
+    target_dir = os.path.join(os.curdir, "docs")
+    if os.path.exists(target_dir):
+        print(f"deleting public dir: {target_dir}")
+        shutil.rmtree(target_dir)
     
-    return static_dir, public_dir
+    return static_dir, target_dir
 
 
 def clone_contents(source_dir):
-    target_dir = source_dir.replace("static", "public")
+    target_dir = source_dir.replace("static", "docs")
     print(f"{source_dir} ---> {target_dir}")
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
